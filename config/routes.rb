@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     resources :pledges, only: [:create]
   end
 
+  resources :nearby_campaigns, only: [:index]
+
   resources :users, only: [:new, :create]
 
   root "campaigns#index"

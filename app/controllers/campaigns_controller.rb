@@ -1,4 +1,5 @@
 class CampaignsController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :index]
   before_action :find_campaign, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -42,7 +43,7 @@ class CampaignsController < ApplicationController
   private
 
   def campaign_params
-    params.require(:campaign).permit(:title, :body, :goal, :end_date)
+    params.require(:campaign).permit(:title, :body, :goal, :end_date, :address)
   end
 
   def find_campaign

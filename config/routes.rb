@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create]
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   root "campaigns#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

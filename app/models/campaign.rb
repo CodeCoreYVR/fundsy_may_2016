@@ -6,6 +6,12 @@ class Campaign < ActiveRecord::Base
   geocoded_by :address
   after_validation :geocode
 
+  has_many :pledges, dependent: :destroy
+
+  def pledged_amount
+    pledges.sum(:amount)
+  end
+
   def upcased_title
     title.upcase
   end

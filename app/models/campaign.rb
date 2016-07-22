@@ -8,6 +8,9 @@ class Campaign < ActiveRecord::Base
 
   has_many :pledges, dependent: :destroy
 
+  has_many :rewards, dependent: :destroy
+  accepts_nested_attributes_for :rewards, reject_if: :all_blank, allow_destroy: true
+
   def pledged_amount
     pledges.sum(:amount)
   end

@@ -33,6 +33,8 @@ gem 'geocoder'
 
 gem "cocoon"
 
+gem "aasm"
+
 gem 'gmaps4rails'
 gem "underscore-rails"
 gem "cowsay"

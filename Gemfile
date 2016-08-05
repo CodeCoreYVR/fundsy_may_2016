@@ -30,6 +30,7 @@ gem "bootstrap-sass"
 gem "simple_form"
 gem "quiet_assets"
 gem 'geocoder'
+gem "virtus"
 
 gem "cocoon"
 

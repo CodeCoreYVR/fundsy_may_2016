@@ -1,7 +1,10 @@
 <div class="col-md-8">
   <h1><%= @campaign.title %></h1>
   <p><%= @campaign.body %></p>
-  <p><%= number_to_currency(@campaign.goal) %></p>
+  <p>
+    <%= number_to_currency(@campaign.goal) %>
+    (pledge amount: <%= number_to_currency(@campaign.pledged_amount) %>)
+  </p>
   <p><%= @campaign.end_date.strftime("%Y-%B-%d at %H:%m") %></p>
 
   <%= link_to "Edit", edit_campaign_path(@campaign) %>
@@ -10,6 +13,12 @@
     <div id="map" style='height: 400px;'></div>
   </div>
 
+  <h2>Make a Pledge</h2>
+  <%= simple_form_for [@campaign, @pledge] do |f| %>
+    <%= f.input :amount, as: :string %>
+    <%= f.button :submit, class: "btn btn-primary" %>
+  <% end %>
+
   <script>
     handler = Gmaps.build('Google');
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
@@ -17,11 +26,6 @@
         {
           "lat": <%= @campaign.latitude %>,
           "lng": <%= @campaign.longitude %>,
-          "infowindow": "<%= @campaign.title %>"
-        },
-        {
-          "lat": <%= @campaign.latitude + 0.001 %>,
-          "lng": <%= @campaign.longitude + 0.001 %>,
           "infowindow": "<%= @campaign.title %>"
         }
       ]);

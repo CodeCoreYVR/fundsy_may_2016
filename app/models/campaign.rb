@@ -53,9 +53,8 @@ class Campaign < ActiveRecord::Base
 
   end
 
-
   def pledged_amount
-    pledges.sum(:amount)
+    pledges.paid.sum(:amount)
   end
 
   def upcased_title

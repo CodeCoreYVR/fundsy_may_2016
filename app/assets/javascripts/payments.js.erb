@@ -1,0 +1,27 @@
+Stripe.setPublishableKey('<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>');
+
+function stripeResponseHandler(status, response) {
+  console.log(response);
+  console.log(status);
+  if(status === 200) {
+    // success > submit to Rails to handle from server
+    $("#stripe_token").val(response.id);
+    $("#server-form").submit();
+  } else {
+    // Show errors
+    $(".stripe-errors").html(response.error.message);
+  }
+}
+
+$(document).ready(function(){
+  $("#stripe-form").submit(function(event){
+    event.preventDefault();
+
+    Stripe.card.createToken({
+      number: $('.card-number').val(),
+      cvc: $('.card-cvc').val(),
+      exp_month: $('.card-expiry-month').val(),
+      exp_year: $('.card-expiry-year').val()
+    }, stripeResponseHandler);
+  });
+});

@@ -3,6 +3,10 @@ Rails.application.routes.draw do
     resources :pledges, only: [:create]
   end
 
+  resources :pledges, only: [] do
+    resources :payments, only: [:new, :create]
+  end
+
   resources :nearby_campaigns, only: [:index]
 
   resources :users, only: [:new, :create]
